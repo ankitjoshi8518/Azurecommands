@@ -19,3 +19,25 @@ $role.AssignableScopes.Clear()
 $role.AssignableScopes.Add("/subscriptions/XXXX/resourceGroups/AZVM1")
 
 New-AzRoleDefinition -Role $role
+
+
+
+#Create a JSON file and use it in powershell cmdlet as shown below:
+
+{
+  "Name": "Custom Role 1",
+  "Id": null,
+  "IsCustom": true,
+  "Description": "Allows for read access to Azure storage and compute resources and access to support",
+  "Actions": [
+    "Microsoft.Compute/*/read",
+    "Microsoft.Storage/*/read",
+    "Microsoft.Support/*"
+  ],
+  "NotActions": [],
+  "AssignableScopes": [
+    "/subscriptions/00000000-0000-0000-0000-000000000000"
+  ]
+}
+
+New-AzRoleDefinition -InputFile "C:\CustomRoles\customrole1.json"
