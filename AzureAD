@@ -1,0 +1,21 @@
+Connect-AzureAD           #Authenticate and connect to azure account
+
+# create new user in azure AD. use 
+
+$PasswordProfile = New-Object -TypeName Microsoft.Open.AzureAD.Model.PasswordProfile
+$PasswordProfile.Password = "Password"
+New-AzureADUser -DisplayName "New User" -PasswordProfile $PasswordProfile -UserPrincipalName "NewUser@contoso.com" -AccountEnabled $true -MailNickName "Newuser"
+
+az ad user create --display-name "Abby Brown" --password "<password>" --user-principal-name "AbbyB@contoso.com"--force-change-password-next-login true \
+                  --mail-nickname "AbbyB"
+
+#Removing Azure AD user
+remove-azureADUser
+az ad user delete
+
+#Creating Azure AD Group
+New-AzureADGroup -Description "Marketing" -DisplayName "Marketing" -MailEnabled $false -SecurityEnabled $true -MailNickName "Marketing"
+
+#New AZ role assignmentL:
+New-AzRoleAssignment -SignInName rbacuser@example.com -RoleDefinitionName "Owner" -Scope "/subscriptions/<subscriptionID>"
+az role assignment create --assignee rbacuser@example.com --role "Owner" --subscription <subscription_name_or_id>
