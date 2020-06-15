@@ -5,4 +5,15 @@ az group create --name rg1 --location eastus      #Creating a resource group
 
 az group list       # list the resource groups
 
+#Creating a new app service plan
+az appservice plan create --name azappplan --resourcegroupname learn-dac3149e-96db-4795-b22f-3aac1df32de5 --location centralus --sku free
+
+#Creating a web app
+az webapp create --name azwebapp --resource-group learn-dac3149e-96db-4795-b22f-3aac1df32de5 --plan azappplan
+
+az appservice plan list       #List app service plan
+az webapp list                #List web apps
+
+#Deploying web app from Github Repo
+az webapp deployment source config --name $AZURE_WEB_APP --resource-group learn-dac3149e-96db-4795-b22f-3aac1df32de5 --repo-url "https://github.com/Azure-samples/php-docs-hello-world" --branch master --manual-integration
 
