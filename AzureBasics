@@ -1,0 +1,8 @@
+az find "vm"    #Find help based on specific keywords
+
+az find "network"
+az group create --name rg1 --location eastus      #Creating a resource group
+
+az group list       # list the resource groups
+
+
