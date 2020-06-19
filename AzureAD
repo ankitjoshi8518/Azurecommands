@@ -16,6 +16,12 @@ az ad user delete
 #Creating Azure AD Group
 New-AzureADGroup -Description "Marketing" -DisplayName "Marketing" -MailEnabled $false -SecurityEnabled $true -MailNickName "Marketing"
 
+#adding user to an Azure AD group
+$user=gr-azureaduser -searchstring username
+$group= Get-AzureADGroup -SearchString groupdisplayname
+Add-AzureADGroupMember -ObjectId $group.ObjectId -RefObjectId $user.ObjectId
+
+
 #New AZ role assignmentL:
 New-AzRoleAssignment -SignInName rbacuser@example.com -RoleDefinitionName "Owner" -Scope "/subscriptions/<subscriptionID>"
 az role assignment create --assignee rbacuser@example.com --role "Owner" --subscription <subscription_name_or_id>
