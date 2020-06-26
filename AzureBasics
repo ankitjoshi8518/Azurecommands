@@ -17,3 +17,13 @@ az webapp list                #List web apps
 #Deploying web app from Github Repo
 az webapp deployment source config --name $AZURE_WEB_APP --resource-group learn-dac3149e-96db-4795-b22f-3aac1df32de5 --repo-url "https://github.com/Azure-samples/php-docs-hello-world" --branch master --manual-integration
 
+--------------------------------------------------------
+#Deploying VM's in availability set using Powershell
+New-azresourcegroup -name AvailabilitysetRG -location eastus          #creating a resource group
+
+#use sku as Aligned for managed disks. In any region we can specify upto 4 different fault domains and upto 20 update domains
+New-azavailabilityset -name azavailset -location eastus -resourcegroupname availabilitysetrg -sku Aligned -platformfaultdomain 2 -platformupdatedomain 4
+
+#create VM in availability set
+New-Azvm -name AZVM1 -resourcegroup availabilitysetrg -location eastus -availabilitysetname availset
+--------------------------------------------------------
