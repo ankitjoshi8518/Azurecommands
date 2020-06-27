@@ -36,6 +36,11 @@ $subnetConfig = Add-AzVirtualNetworkSubnetConfig -Name default -AddressPrefix 19
 $virtualNetwork | Set-AzVirtualNetwork
 New-AzVm -ResourceGroupName "AZRG" -Location "East US" -VirtualNetworkName "AZVNET" -SubnetName "default" -Name "myVm1" 
 -------------------------------------------------------------------
+# Deploying container instances
+New-AzContainerGroup -ResourceGroupName contrg2 -Name containergroupwindows `
+-Image mcr.microsoft.com/windows/servercore:ltsc2019 -Location eastus -OsType Windows -RestartPolicy Always `
+-Cpu 1 -MemoryInGB 1 -IpAddressType Public -DnsNameLabel ankit8518 -Port 80
+-------------------------------------------------------------------
 
 #Creating a new app service plan
 az appservice plan create --name azappplan --resourcegroupname learn-dac3149e-96db-4795-b22f-3aac1df32de5 --location centralus --sku free
