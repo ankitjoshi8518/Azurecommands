@@ -14,6 +14,25 @@ Update-azvm -vm $vm -resourcegroupname RG
 #open RDP session from powershell
 Get-AzRemoteDesktopFile -ResourceGroupName scaleset2 -Name bast -Launch
 -----------------------------------------------------------------
+# Generalize a VM, create image from it and create new VM from the image
+
+#run sysprep/waagent on the VM
+Stop-AzVM bast -ResourceGroupName scaleset2
+Set-AzVM -ResourceGroupName scaleset2 -Name bast -Generalized
+
+$vm=get-AzVM -Name bast -ResourceGroupName scaleset2 
+
+$image=New-AzImageConfig -SourceVirtualMachineId $vm.id -Location eastus
+
+New-AzImage -Image $image -ImageName "generalizedazvm" -ResourceGroupName scaleset2
+new-AzVM -Name vm2 -image generalized -ResourceGroupName scaleset2 
+
+------------------------------------------------------------------
+
+
+
+
+
 
 #Creating a new app service plan
 az appservice plan create --name azappplan --resourcegroupname learn-dac3149e-96db-4795-b22f-3aac1df32de5 --location centralus --sku free
