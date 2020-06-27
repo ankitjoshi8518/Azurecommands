@@ -5,6 +5,16 @@ az group create --name rg1 --location eastus      #Creating a resource group
 
 az group list       # list the resource groups
 
+-----------------------------------------------------------------
+#resize virtual machine size. Kindly note that VM needs to be restarted    
+$vm=get-azvm -resourcegroupname RG -name virtualmachine1
+$vm.hardwareprofile=Standard_b4ms
+Update-azvm -vm $vm -resourcegroupname RG
+-----------------------------------------------------------------
+#open RDP session from powershell
+Get-AzRemoteDesktopFile -ResourceGroupName scaleset2 -Name bast -Launch
+-----------------------------------------------------------------
+
 #Creating a new app service plan
 az appservice plan create --name azappplan --resourcegroupname learn-dac3149e-96db-4795-b22f-3aac1df32de5 --location centralus --sku free
 
