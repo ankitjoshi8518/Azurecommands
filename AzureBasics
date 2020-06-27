@@ -28,11 +28,14 @@ New-AzImage -Image $image -ImageName "generalizedazvm" -ResourceGroupName scales
 new-AzVM -Name vm2 -image generalized -ResourceGroupName scaleset2 
 
 ------------------------------------------------------------------
+#Creating a new virtual network and subnet and creating VM
 
-
-
-
-
+New-AzResourceGroup -Name AZRG -Location EastUS
+$virtualNetwork = New-AzVirtualNetwork -ResourceGroupName AZRG -Location EastUS -Name AZVNET -AddressPrefix 192.168.0.0/16
+$subnetConfig = Add-AzVirtualNetworkSubnetConfig -Name default -AddressPrefix 192.168.0.0/24 -VirtualNetwork $virtualNetwork
+$virtualNetwork | Set-AzVirtualNetwork
+New-AzVm -ResourceGroupName "AZRG" -Location "East US" -VirtualNetworkName "AZVNET" -SubnetName "default" -Name "myVm1" 
+-------------------------------------------------------------------
 
 #Creating a new app service plan
 az appservice plan create --name azappplan --resourcegroupname learn-dac3149e-96db-4795-b22f-3aac1df32de5 --location centralus --sku free
